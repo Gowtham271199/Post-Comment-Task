@@ -14,26 +14,28 @@ const UserMentions = () => {
     // Add more user objects as needed...
   ];
 
+
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     setValue(inputValue);
   };
 
   const handleSelectUser = (id, display) => {
-    const mentionValue = `@${display} `;
+    const mentionValue = `${display} `;
     setValue(value + mentionValue);
     setMentionedUser({ id, display });
   };
 
   const handlePostComment = () => {
-    if (mentionedUser) {
-      const newComment = `Posting comment mentioning: ${mentionedUser.display}`;
-      setCommentList([...commentList, newComment]);
-      setValue('');
-      setMentionedUser(null);
-    } else {
-      alert('Please mention a user before posting.');
+    if (value.trim() === '') {
+      alert('Please enter a comment before posting.');
+      return;
     }
+
+    const newComment = value.trim(); // Use trimmed value to remove leading/trailing spaces
+    setCommentList([...commentList, newComment]);
+    setValue('');
+    setMentionedUser(null);
   };
 
   const CustomSuggestion = ({ display }) => {
@@ -73,7 +75,7 @@ const UserMentions = () => {
         <Mention
           trigger="@"
           data={users}
-          displayTransform={(id, display) => `@${display}`}
+          displayTransform={(id, display) => `${display}`}
           renderSuggestion={CustomSuggestion}
           onAdd={(id, display) => handleSelectUser(id, display)}
         />
@@ -103,4 +105,3 @@ const UserMentions = () => {
 };
 
 export default UserMentions;
-

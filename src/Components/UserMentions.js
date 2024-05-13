@@ -3,7 +3,6 @@ import { MentionsInput, Mention } from 'react-mentions';
 
 const UserMentions = () => {
   const [value, setValue] = useState('');
-  const [mentionedUser, setMentionedUser] = useState(null);
   const [commentList, setCommentList] = useState([]);
 
   const users = [
@@ -14,7 +13,6 @@ const UserMentions = () => {
     // Add more user objects as needed...
   ];
 
-
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     setValue(inputValue);
@@ -23,7 +21,6 @@ const UserMentions = () => {
   const handleSelectUser = (id, display) => {
     const mentionValue = `${display} `;
     setValue(value + mentionValue);
-    setMentionedUser({ id, display });
   };
 
   const handlePostComment = () => {
@@ -35,7 +32,6 @@ const UserMentions = () => {
     const newComment = value.trim(); // Use trimmed value to remove leading/trailing spaces
     setCommentList([...commentList, newComment]);
     setValue('');
-    setMentionedUser(null);
   };
 
   const CustomSuggestion = ({ display }) => {
